@@ -547,6 +547,9 @@
 
 #endif
 
+// Limit an index to an array size
+#define ALIM(I,ARR) _MIN(I, (signed)COUNT(ARR) - 1)
+
 // Macros for adding
 #define INC_0   1
 #define INC_1   2
@@ -658,11 +661,8 @@
 #define IF_ELSE(TF) _IF_ELSE(_BOOL(TF))
 #define _IF_ELSE(TF) _CAT(_IF_, TF)
 
-#define _IF_1(V...) V _IF_1_ELSE
-#define _IF_0(...)    _IF_0_ELSE
-
-#define _IF_1_ELSE(...)
-#define _IF_0_ELSE(V...) V
+#define _IF_1(V...) V OMIT
+#define _IF_0(...)    EMIT
 
 #define HAS_ARGS(V...) _BOOL(FIRST(_END_OF_ARGUMENTS_ V)())
 #define _END_OF_ARGUMENTS_() 0
